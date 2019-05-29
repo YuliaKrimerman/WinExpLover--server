@@ -4,8 +4,8 @@ const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
-const foldersRouter = require('./folders/folders-router');
-const notesRouter = require('./notes/notes-router');
+//const apiDataRouter = require('./apiData/api-data-router');
+//const usersDataRouter = require('./usersData/usersData-router');
 
 const app = express()
 
@@ -17,8 +17,8 @@ app.use(morgan(morganOption))
 app.use(cors())
 app.use(helmet())
 
-app.use('/api', foldersRouter)
-app.use('/api', notesRouter)
+//app.use('/api', apiData)
+//app.use('/api', usersData)
 
 app.use(function errorHandler(error, req, res, next) {
     let response
