@@ -4,7 +4,7 @@ const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
-//const apiDataRouter = require('./apiData/api-data-router');
+const winesRouter = require('./apiData/api-data-router');
 //const usersDataRouter = require('./usersData/usersData-router');
 
 const app = express()
@@ -17,7 +17,7 @@ app.use(morgan(morganOption))
 app.use(cors())
 app.use(helmet())
 
-//app.use('/api', apiData)
+app.use(winesRouter)
 //app.use('/api', usersData)
 
 app.use(function errorHandler(error, req, res, next) {

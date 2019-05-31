@@ -5,10 +5,11 @@ const unirest = require('unirest');
 const events = require('events');
 const app = require('./app');
 const { PORT, DB_URL } = require('./config');
+const apiDataService = require('./apiData/api-data-service')
 
 const db = knex({
   client: 'pg',
-  connection: DB_URL,
+  connection: DB_URL
 })
 
 app.set('db', db);
@@ -48,10 +49,35 @@ app.get('/wine-api-data/:winequery', function (req, res) {
     let searchReq = getApiWines(req.params.winequery);
 
     //get the data from the first api call
-    searchReq.on('end', function (item) {
-		console.log(item);
+    searchReq.on('end', function (newWine) {
+		console.log(newWine.wines);
 	//database conection comes here
-        res.json(item);
+		let dbSaveWine = [];
+		for (let i=0 ;i <newWine.wines.length; i++) {
+			dbSaveWine[i] = { 
+						image:newWine.wines[i].image, 
+						name:newWine.wines[i].name, 
+						region:newWine.wines[i].region ,
+						wine_type:newWine.wines[i].type,
+						rating:newWine.wines[i].snoothrank ,
+						code:newWine.wines[i].code
+					   }
+		}
+	 console.log(dbSaveWine)
+	
+	
+apiDataService.insertWine(req.app.get('db'), dbSaveWine)
+		
+            .then(newWine => {
+                res
+                    .status(201)
+                    //.location(path.posix.join(req.originalUrl + `/${newWine.id}`)) // 
+                    .json(newWine)
+            })
+		 	.catch(err => {
+                console.log(err);
+            });
+      //  res.json(newWine.wines);
     });
 
     //error handling
@@ -60,6 +86,7 @@ app.get('/wine-api-data/:winequery', function (req, res) {
     });
 
 });
+
 
 
 app.listen(PORT, () => {

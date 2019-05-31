@@ -1,12 +1,12 @@
-const FoldersService = {
-    getAllFolders(knex) {
-        return knex.select('*').from('noteful_folders')
+const apiDataService = {
+    getAllWines(knex) {
+        return knex.select('*').from('api_data')
     },
 
-    insertFolder(knex, newFolder) {
+    insertWine(knex, newWine) {
         return knex
-            .insert(newFolder)
-            .into('noteful_folders')
+            .insert(newWine)
+            .into('api_data')
             .returning('*')
             .then(rows => {
                 return rows[0]
@@ -15,23 +15,23 @@ const FoldersService = {
 
     getById(knex, id) {
         return knex
-            .from('noteful_folders')
+            .from('api_data')
             .select('*')
             .where('id', id)
             .first()
     },
 
     deleteFolder(knex, id) {
-        return knex('noteful_folders')
+        return knex('api_data')
             .where({ id })
             .delete()
     },
 
-    updateFolder(knex, id, newFolderFields) {
-        return knex('noteful_folders')
+    updateFolder(knex, id, newWineFields) {
+        return knex('api_data')
             .where({ id })
             .update(newFolderFields)
     },
   }
   
-module.exports = FoldersService;
+module.exports = apiDataService;
