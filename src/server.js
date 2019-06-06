@@ -7,6 +7,8 @@ const app = require('./app');
 const { PORT, DB_URL } = require('./config');
 const apiDataService = require('./apiData/api-data-service')
 
+
+
 const db = knex({
   client: 'pg',
   connection: DB_URL
@@ -71,7 +73,7 @@ apiDataService.insertWine(req.app.get('db'), dbSaveWine)
             .then(newWine => {
                 res
                     .status(201)
-                    //.location(path.posix.join(req.originalUrl + `/${newWine.id}`)) // 
+                
                     .json(newWine)
             })
 		 	.catch(err => {
@@ -84,8 +86,8 @@ apiDataService.insertWine(req.app.get('db'), dbSaveWine)
     searchReq.on('error', function (code) {
         res.sendStatus(code);
     });
-
-});
+	
+	});
 
 
 

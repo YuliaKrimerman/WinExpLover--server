@@ -5,7 +5,7 @@ const cors = require('cors')
 const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
 const winesRouter = require('./apiData/api-data-router');
-//const usersDataRouter = require('./usersData/usersData-router');
+const userDataRouter = require('./usersData/users-data-router');
 
 const app = express()
 
@@ -18,7 +18,7 @@ app.use(cors())
 app.use(helmet())
 
 app.use(winesRouter)
-//app.use('/api', usersData)
+app.use(userDataRouter)
 
 app.use(function errorHandler(error, req, res, next) {
     let response
