@@ -65,11 +65,8 @@ app.get('/wine-api-data/:winequery', function (req, res) {
 						code:newWine.wines[i].code
 					   }
 		}
-	 console.log(dbSaveWine)
-	
 	
 apiDataService.insertWine(req.app.get('db'), dbSaveWine)
-		
             .then(newWine => {
                 res
                     .status(201)

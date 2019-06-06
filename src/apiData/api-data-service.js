@@ -21,13 +21,13 @@ const apiDataService = {
             .first()
     },
 
-    deleteFolder(knex, id) {
+    deleteWine(knex, id) {
         return knex('api_data')
             .where({ id })
             .delete()
     },
 
-    updateFolder(knex, id, newWineFields) {
+    updateWine(knex, id, newWineFields) {
         return knex('api_data')
             .where({ id })
             .update(newFolderFields)
