@@ -21,6 +21,9 @@ const userDataService = {
             .first()
     },
 
+	
+
+
     deleteUserData(knex, id) {
         return knex('users_data')
             .where({ id })
