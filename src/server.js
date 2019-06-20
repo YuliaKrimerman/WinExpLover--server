@@ -61,10 +61,10 @@ app.get('/wine-api-data/:winequery', function (req, res) {
 		let dbSaveWine = [];
 		for (let i = 0; i < newWine.wines.length; i++) {
 			let wineName = newWine.wines[i].name
-		//	if (
-		//	wineName.includes(req.params.winequery)
-		//	) 
-			//{
+			let wineNameLowerCase = wineName.toLowerCase();
+			let wineQueryLowerCase = req.params.winequery.toLowerCase();
+			// if there are meaningful results from API filter them and store in DB
+			if (wineNameLowerCase.includes(wineQueryLowerCase)) {
 				dbSaveWine[i] = {
 					image: newWine.wines[i].image,
 					name: newWine.wines[i].name,
@@ -73,53 +73,40 @@ app.get('/wine-api-data/:winequery', function (req, res) {
 					rating: newWine.wines[i].snoothrank,
 					code: newWine.wines[i].code
 				};
-		//	}
-
-
-		}
-	//	let result = [];
-		//result = newWine.wines
-		apiDataService.insertWine(req.app.get('db'), dbSaveWine )
-			.then(newWine => {
 			
 				
-					res.newWine =wines
-					.status(201)
-					.json(newWine.wines)
-			})
-	//	.catch(err => {
-	//	console.log(err);
-	//	res
-		//	.status(999)
-		//	.json('no results added')
-		//	});
-		res.json(dbSaveWine);
+			} 
+			
+			// if no meaningful results, store an empty wine
+			//else {
+			//	dbSaveWine[i] = {
+				//	image: '',
+				//	name: '',
+				//	region: '',
+				//	wine_type: '',
+				//	rating: '',
+				//	code: ''
+			//	};
+			//	res.json(dbSaveWine);
+			//}
+
+		}
+				apiDataService.insertWine(req.app.get('db'), dbSaveWine)
+					.then(newWine => {
+
+						res
+							.status(201)
+							.json(newWine.wines)
+					})
+
+				res.json(dbSaveWine);
+
 	});
 
 	//error handling
 	searchReq.on('error', function (code) {
 		res.sendStatus(code);
 	});
-
-
-
-	//apiDataService.getByName(req.app.get('db'), req.params.winequery)
-	//.then(wines => {
-	//	if (!wines) {
-	//	return res.status(404).json({
-	//		error: {
-	//		message: `Wine doesn't exist`
-
-	//	}
-	//	})
-	//	}
-	//	res.wines = wines // save the note for the next middleware
-
-	//})
-	//.catch(error=> {
-	//	console.log(error)
-	//	})
-
 
 
 

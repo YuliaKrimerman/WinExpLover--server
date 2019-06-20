@@ -28,8 +28,8 @@ userDataRouter
             });
     })
     .post(jsonParser, (req, res, next) => {
-        const { comments, rating } = req.body
-        const newData = { comments, rating }
+        const { comments, rating, code } = req.body
+        const newData = { comments, rating,code }
 		console.log(newData);
         for (const [key, value] of Object.entries(newData)) {
             if (value == null) {

@@ -13,11 +13,11 @@ const userDataService = {
             })
     },
 
-    getById(knex, id) {
+    getById(knex, code) {
         return knex
             .from('users_data')
             .select('*')
-            .where('id', id)
+            .where('code', code)
             .first()
     },
 
