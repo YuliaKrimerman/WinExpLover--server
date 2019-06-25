@@ -28,8 +28,8 @@ userDataRouter
             });
     })
     .post(jsonParser, (req, res, next) => {
-        const { comments, rating, code } = req.body
-        const newData = { comments, rating,code }
+        const { comments, rating, code, image } = req.body
+        const newData = { comments, rating,code, image }
 		console.log(newData);
         for (const [key, value] of Object.entries(newData)) {
             if (value == null) {
@@ -55,12 +55,29 @@ userDataRouter
 .all((req, res, next) => {
     userDataService.getById(req.app.get('db'), req.params.userData_id )
     .then(newData => {
+		console.log(newData)
         if (!newData) {
             return res.status(404).json({
                 error: { message: `Note doesn't exist` }
             })
         }
-        res.newData = newData // save the note for the next middleware
+          res.status(201).json(newData) // save the note for the next middleware
+        next()
+    })
+    .catch(next)
+})
+userDataRouter
+.route('/ratings/:ratingNumber')
+.all((req, res, next) => {
+    userDataService.getRatings(req.app.get('db'), req.params.ratingNumber )
+    .then(newData => {
+		console.log(newData)
+        if (!newData) {
+            return res.status(404).json({
+                error: { message: `Note doesn't exist` }
+            })
+        }
+          res.status(201).json(newData) // save the note for the next middleware
         next()
     })
     .catch(next)

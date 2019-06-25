@@ -18,7 +18,15 @@ const userDataService = {
             .from('users_data')
             .select('*')
             .where('code', code)
-            .first()
+         
+    },
+	
+	getRatings(knex, rating) {
+        return knex
+            .from('users_data')
+            .select('*')
+            .where('rating', rating)
+         
     },
 
 	
