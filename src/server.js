@@ -64,7 +64,7 @@ app.get('/wine-api-data/:winequery', function (req, res) {
 			let wineNameLowerCase = wineName.toLowerCase();
 			let wineQueryLowerCase = req.params.winequery.toLowerCase();
 			// if there are meaningful results from API filter them and store in DB
-			if (wineNameLowerCase.includes(wineQueryLowerCase)) {
+		//	if (wineNameLowerCase.includes(wineQueryLowerCase)) {
 				dbSaveWine[i] = {
 					image: newWine.wines[i].image,
 					name: newWine.wines[i].name,
@@ -75,22 +75,20 @@ app.get('/wine-api-data/:winequery', function (req, res) {
 				};
 			
 				
-			} 
-			
-			// if no meaningful results, store an empty wine
-			//else {
+		//	} else
+		//	{
 			//	dbSaveWine[i] = {
-				//	image: '',
-				//	name: '',
-				//	region: '',
+			//		image:'' ,
+			//		name: '',
+			//		region: '',
 				//	wine_type: '',
 				//	rating: '',
 				//	code: ''
-			//	};
-			//	res.json(dbSaveWine);
-			//}
-
-		}
+				//};
+				//res.json(dbSaveWine);
+			}
+		
+		
 				apiDataService.insertWine(req.app.get('db'), dbSaveWine)
 					.then(newWine => {
 
@@ -100,6 +98,7 @@ app.get('/wine-api-data/:winequery', function (req, res) {
 					})
 
 				res.json(dbSaveWine);
+		
 
 	});
 
