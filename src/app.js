@@ -6,6 +6,7 @@ const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
 const winesRouter = require('./apiData/api-data-router');
 const userDataRouter = require('./usersData/users-data-router');
+const config = require('./config')
 
 const app = express()
 
