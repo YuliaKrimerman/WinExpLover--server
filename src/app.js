@@ -14,11 +14,19 @@ const morganOption = (NODE_ENV === 'production')
   : 'common';
 
 app.use(morgan(morganOption))
-app.use(cors())
+app.use(
+    cors({
+        origin: config.CLIENT_ORIGIN || 3000
+    })
+);
 app.use(helmet())
 
 app.use(winesRouter)
 app.use(userDataRouter)
+app.get('/', (req,res) => {
+    res.send('Hello, world!')
+})
+
 
 app.use(function errorHandler(error, req, res, next) {
     let response
@@ -32,3 +40,5 @@ app.use(function errorHandler(error, req, res, next) {
 })
 
 module.exports = app
+
+
