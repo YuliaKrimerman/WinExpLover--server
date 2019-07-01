@@ -1,9 +1,7 @@
 const express = require('express');
 const xss = require('xss');
 const path = require('path');
-
 const apiDataService = require('./api-data-service')
-
 const winesRouter = express.Router();
 const jsonParser = express.json();
 
@@ -53,8 +51,8 @@ winesRouter
 	.all((req, res, next) => {
 		apiDataService.getByName(req.app.get('db'), req.params.name)
 			.then(wines => {
-			console.log(req.params.name);
-			console.log(wines);
+				console.log(req.params.name);
+				console.log(wines);
 				if (!wines) {
 					return res.status(404).json({
 						error: {
@@ -71,7 +69,7 @@ winesRouter
 		res.json(res.wines)
 	})
 
-	
+
 
 
 

@@ -26,7 +26,7 @@ const apiDataService = {
 		return knex
 			.from('api_data')
 			.select('*')
-			.where('name', 'LIKE' ,`%${name}%`)
+			.where('name', 'LIKE', `%${name}%`)
 			.first()
 	},
 
