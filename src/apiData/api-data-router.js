@@ -51,8 +51,6 @@ winesRouter
 	.all((req, res, next) => {
 		apiDataService.getByName(req.app.get('db'), req.params.name)
 			.then(wines => {
-				console.log(req.params.name);
-				console.log(wines);
 				if (!wines) {
 					return res.status(404).json({
 						error: {
